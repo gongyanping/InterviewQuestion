@@ -1,0 +1,143 @@
+1. 输入[2,3,4,[55,77,[6,43,2]],33]输出：[2,3,4,55,77,6,43,2,33]
+方法一：递归
+function handleArr1(arr){
+  var result = [];
+  var inner = (arr) => {
+    for (var i = 0; i < arr.length; i++){
+        let temp = arr[i];
+      if (typeof temp === "number" && !isNaN(temp)){
+        result.push(arr[i]);
+      }else if(temp.constructor === Array && Object.prototype.toString.call(temp) === "[object Array]"){
+        inner(arr[i]);
+      }
+    }
+  }
+  inner(arr);
+  return result;
+}
+方法二：利用toString
+function handleArr2(arr){
+  var arrs = arr.toString().split(",");
+  arrs.map((value,index,arrs) => {
+    return Number(value);
+  })
+  return arrs;
+}
+
+2.undefined和null的区别, 还有undeclared:
+null表示没有对象, 即此处不该有此值. 典型用法:
+（1） 作为函数的参数，表示该函数的参数不是对象。
+（2） 作为对象原型链的终点。
+（3） null可以作为空指针. 只要意在保存对象的值还没有真正保存对象,就应该明确地让该对象保存null值。
+undefined表示缺少值, 即此处应该有值, 但还未定义.
+（1）变量被声明了，但没有赋值时，就等于undefined。
+（2) 调用函数时，应该提供的参数没有提供，该参数等于undefined。
+（3）对象没有赋值的属性，该属性的值为undefined。
+（4）函数没有返回值时，默认返回undefined。
+undeclared即为被污染的命名, 访问没有被声明的变量, 则会抛出异常, 终止执行. 即undeclared是一种语法错误。
+
+3.JS如何判断一组数字是否连续
+// 当出现连续数字的时候以‘-’输出[1, 2, 3, 4, 6, 8, 9, 10]，期望结果：["1-4", 6, "8-10"]
+//判断是否连续：判断前后数字是否相差为1，如果是则加入同一个数组
+var arrange = function(arr){
+    var result = [],temp = [];
+    arr.sort(function(source, dest){
+        return source - dest;
+    }).concat(Infinity).reduce(function(source, dest){
+        temp.push(source);
+        if(dest-source > 1){
+            result.push(temp);
+            temp = [];
+        }
+        return dest;
+    });
+    return result;
+};
+var formatarr = function(arr) {
+    var newArr = []
+    var arr1 = arrange(arr)
+    for (var i in arr1) {
+        var str = '';
+        if (arr1[i].length > 1) {
+            str = arr1[i][0] + '-' + arr1[i][arr1[i].length - 1];
+            newArr.push(str)
+        } else {
+            newArr.push(arr1[i][0]);
+        }
+   }
+   return newArr;
+}
+
+4.CSS的盒子模型
+包含元素内容content、内边距padding、边框border、外边距margin
+box-sizing:border-box;content-box;inherit;
+content-box:总宽度=margin+border+padding+width，即为标准模型；
+border-box:总宽度=margin+width，即为IE模型；
+inherit:继承父元素的border-sizing属性。
+
+5.AJAX的readyState几种状态
+0——初始化
+1——载入
+2——载入完成
+3——解析
+4——完成
+
+6.判断是否回文
+var str = 'resiviser';
+function reserve(str) {
+  return str === str.split('').reverse().join('');
+}
+
+7. 数组去重 //includes indexOf
+function unique(arr) {
+  const container = {};
+  const newArr = [];
+  for(let i = 0,len = arr.length;i < len; i++) {
+    if (!container[arr[i]]) {
+      container[arr[i]] = true;
+      newArr.push(arr[i]);
+    }
+  }
+  return newArr;
+}
+
+8.尾递归阶乘
+function factorial(num) {
+  if(num <= 1) return 1;
+  return num * factorial(num - 1);
+}
+
+9.// 统计字符串出现次数最多的字母
+function findMoreLetter(str) {
+  let container = {};
+  var maxValue = 0;
+  let maxKey = '';
+  str = str.split('');
+  for(let i = 0,len = str.length; i < len; i++) {
+    if(!container[str[i]]) {
+      container[str[i]] = 1;
+    } else {
+      ++ container[str[i]];
+    }
+  }
+  Object.keys(container).forEach((key) => {
+    if (container[key] >= maxValue) {
+      maxValue = container[key];
+      maxKey = key;
+    } 
+  });
+  return maxKey + '一共出现了' + maxValue;
+}
+console.log(findMoreLetter('asdfsasdasfas'));
+
+10.字符串转驼峰border-bottom-color ----> borderBottomColor
+var str="border-bottom-color";
+function Change(str){
+    var arr=str.split("-");
+    for(var i=1;i<arr.length;i++){
+        arr[i]=arr[i].charAt(0).toUpperCase()+arr[i].substring(1);
+    }
+    str=arr.join("");
+    return str;
+}
+console.log(Change(str));//borderBottomColor
