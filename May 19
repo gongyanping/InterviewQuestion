@@ -88,7 +88,8 @@ function reserve(str) {
   return str === str.split('').reverse().join('');
 }
 
-7. 数组去重 //includes indexOf
+7. 数组去重 
+方法一//includes indexOf
 function unique(arr) {
   const container = {};
   const newArr = [];
@@ -100,6 +101,10 @@ function unique(arr) {
   }
   return newArr;
 }
+方法二
+[1,2,3,1,'a',1,'a'].filter(function(ele,index,array){ return index===array.indexOf(ele)})
+方法三
+[...new Set([1,2,3,1,'a',1,'a'])] 
 
 8.尾递归阶乘
 function factorial(num) {
@@ -141,3 +146,98 @@ function Change(str){
     return str;
 }
 console.log(Change(str));//borderBottomColor
+
+11.给定一个学生列表，学生信息由班级、分数、姓名等组成。请按照下列规则对学生列表进行排序：
+按照班级从小到大进行排列; 班级相同时，按照成绩从大到小排序; 班级和成绩相同时，按照学生列表中的先后顺序排序
+输入：学生列表   输出：排序后的学生列表
+样例输入： 
+[{“name”:”张三”,”class”:2,”score”:64},{“name”:”李四”,”class”:1,”score”:80},{“name”:”王五”,”class”:1,”score”:80},{“name”:”赵六”,”class”:4,”score”:94}]
+样例输出： 
+[{“name”:”李四”,”class”:1,”score”:80},{“name”:”王五”,”class”:1,”score”:80},{“name”:”张三”,”class”:2,”score”:64},{“name”:”赵六”,”class”:4,”score”:94}]
+function sortStudents(students) {
+    students.sort((a,b)=>{
+        if (a.class===b.class) 
+            if (a.score===b.score) 
+                return 0;
+            else return b.score - a.score;
+        else return a.class - b.class;
+    });
+    return JSON.stringify(students);
+
+}
+students = [{"name":"张三","class":2,"score":64},{"name":"李四","class":1,"score":80},{"name":"王五","class":1,"score":80},{"name":"赵六","class":4,"score":94}]
+sortStudents = sortStudents(students);
+console.log(sortStudents);
+
+12.Doctype作用? 严格模式与混杂模式-如何触发这两种模式，区分它们有何意义?
+（1）、<!DOCTYPE> 声明位于文档中的最前面，处于 <html> 标签之前。告知浏览器的解析器，用什么文档类型 规范来解析这个文档。 
+（2）、严格模式的排版和 JS 运作模式是  以该浏览器支持的最高标准运行。
+（3）、在混杂模式中，页面以宽松的向后兼容的方式显示。模拟老式浏览器的行为以防止站点无法工作。
+（4）、DOCTYPE不存在或格式不正确会导致文档以混杂模式呈现。
+
+13.行内元素有哪些？块级元素有哪些？ 空(void)元素有那些？
+（1）CSS规范规定，每个元素都有display属性，确定该元素的类型，每个元素都有默认的display值，比如div默认display属性值为“block”，成为“块级”元素；span默认display属性值为“inline”，是“行内”元素。  
+（2）行内元素有：a b span img input select strong（强调的语气） 块级元素有：div ul ol li dl dt dd h1 h2 h3 h4…p  
+（3）知名的空元素： <br> <hr> <img> <input> <link> <meta> 
+ 鲜为人知的是： <area> <base> <col> <command> <embed> <keygen> <param> <source> <track> <wbr>
+     
+ 14.link 和@import 的区别是?
+（1）、link属于XHTML标签，而@import是CSS提供的;
+（2）、页面被加载的时，link会同时被加载，而@import引用的CSS会等到页面被加载完再加载;
+（3）、import只在IE5以上才能识别，而link是XHTML标签，无兼容问题;
+（4）、link方式的样式的权重 高于@import的权重.
+  
+15.XHTML 与 HTML 之间的差异?
+XHTML 是更严谨更纯净的 HTML 版本。XHTML 与 HTML 4.01 标准没有太多的不同。
+最主要的不同：
+XHTML 元素必须被正确地嵌套。
+XHTML 元素必须被关闭。
+标签名必须用小写字母。
+XHTML 文档必须拥有根元素。
+
+16.CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？
+1>.id选择器（ # myid）
+2>.类选择器（.myclassname）
+3>.标签选择器（div, h1, p）
+4>.相邻选择器（h1 + p）
+5>.子选择器（ul < li）
+6>.后代选择器（li a）
+7>.通配符选择器（ * ）
+8>.属性选择器（a[rel = "external"]）
+9>.伪类选择器（a: hover, li: nth - child）
+*   可继承： font-size font-family color, UL LI DL DD DT;
+*   不可继承 ：border padding margin width height ;
+*   优先级就近原则，样式定义最近者为准;
+*   载入样式以最后载入的定位为准;
+优先级为:
+!important >  id > class > tag  
+important 比 内联优先级高
+CSS3新增伪类举例：
+p:first-of-type 选择属于其父元素的首个 <p> 元素的每个 <p> 元素。
+p:last-of-type  选择属于其父元素的最后 <p> 元素的每个 <p> 元素。
+p:only-of-type  选择属于其父元素唯一的 <p> 元素的每个 <p> 元素。
+p:only-child    选择属于其父元素的唯一子元素的每个 <p> 元素。
+p:nth-child(2)  选择属于其父元素的第二个子元素的每个 <p> 元素。
+:enabled、:disabled 控制表单控件的禁用状态。
+:checked，单选框或复选框被选中。
+
+17.JavaScript的数据对象有那些属性值？
+writable：这个属性的值是否可以改。
+configurable：这个属性的配置是否可以删除，修改。
+enumerable：这个属性是否能在for…in循环中遍历出来或在Object.keys中列举出来。
+value：属性值。
+
+18.css定义的权重
+标签的权重为1，class的权重为10，id的权重为100，以下例子是演示各种定义的权重值：
+
+19.eval是做什么的？
+它的功能是把对应的字符串解析成JS代码并运行；
+避免使用eval，不安全，非常耗性能（2次，一次解析成js语句，一次执行）。
+
+20.答案是多少？
+(function(x){
+    delete x;
+    alert(x);
+})(1+5);
+函数参数无法delete删除，delete只能删除通过for in访问的属性。
+当然，删除失败也不会报错，所以代码运行会弹出“6”。
