@@ -241,3 +241,69 @@ value：属性值。
 })(1+5);
 函数参数无法delete删除，delete只能删除通过for in访问的属性。
 当然，删除失败也不会报错，所以代码运行会弹出“6”。
+
+21.创建ajax过程
+(1)创建XMLHttpRequest对象,也就是创建一个异步调用对象.
+(2)创建一个新的HTTP请求,并指定该HTTP请求的方法、URL及验证信息.
+(3)设置响应HTTP请求状态变化的函数.
+(4)发送HTTP请求.
+(5)获取异步调用返回的数据.
+(6)使用JavaScript和DOM实现局部刷新
+
+22.渐进增强和优雅降级
+渐进增强 ：针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。
+优雅降级 ：一开始就构建完整的功能，然后再针对低版本浏览器进行兼容
+
+23.移动端性能优化
+尽量使用css3动画，开启硬件加速。
+适当使用touch事件代替click事件。
+避免使用css3渐变阴影效果。
+可以用transform: translateZ(0)来开启硬件加速。
+不滥用Float。Float在渲染时计算量比较大，尽量减少使用
+不滥用Web字体。Web字体需要下载，解析，重绘当前页面，尽量减少使用。
+合理使用requestAnimationFrame动画代替setTimeout
+CSS中的属性（CSS3 transitions、CSS3 3D transforms、Opacity、Canvas、WebGL、Video）会触发GPU渲染，请合理使用。过渡使用会引发手机过耗电增加
+PC端的在移动端同样适用
+
+24.defer和async
+defer并行加载js文件，会按照页面上script标签的顺序执行 
+async并行加载js文件，下载完成立即执行，不会按照页面上script标签的顺序执行
+
+25.你知道多少种Doctype文档类型？
+该标签可声明三种 DTD 类型，分别表示严格版本、过渡版本以及基于框架的 HTML 文档。
+HTML 4.01 规定了三种文档类型：Strict、Transitional 以及 Frameset。
+XHTML 1.0 规定了三种 XML 文档类型：Strict、Transitional 以及 Frameset。
+Standards 标准）模式（也就是严格呈现模式）用于呈现遵循最新标准的网页，而 Quirks
+（包容）模式（也就是松散呈现模式或者兼容模式）用于呈现为传统浏览器而设计的网页。
+ 
+26.ie各版本和chrome可以并行下载多少个资源
+IE6 两个并发，iE7升级之后的6个并发，之后版本也是6个
+Firefox，chrome也是6个
+
+27.git fetch和git pull的区别
+git pull：相当于是从远程获取最新版本并merge到本地
+git fetch：相当于是从远程获取最新版本到本地，不会自动merge
+
+28.什么样的前端代码是好的
+高复用低耦合，这样文件小，好维护，而且好扩展。
+
+29.基本的数据类型
+5个简单数据类型（基本数据类型）+ 1个复杂数据类型 
+undefiend, number string null boolean + object 
+ES6 新增Symbol
+
+30.基本的两列自适应布局
+```
+#div1{
+    width: 100px;
+    display: inline-block;
+    background-color: black;
+}
+#div2{
+    display: inline-block;
+    position: absolute;
+    left: 100px;
+    right: 0px;
+    background-color: red;
+}
+```
